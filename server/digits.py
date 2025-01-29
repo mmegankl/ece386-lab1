@@ -11,15 +11,15 @@ from tensorflow.keras.saving import load_model  # type: ignore[import]
 from PIL import Image
 from io import BytesIO
 import numpy as np
-import tensorflow as tf
+# import tensorflow as tf
+from fastapi import FastAPI
 
 model_path: str = "digits.keras"
 # TODO: Open saved Keras model as global variable. NO TYPE HINT REQUIRED!
-global keras_model
-keras_model = tf.keras.models.load_model(ece386-lab1/server/digits.keras)
+keras_model = load_model("./digits.keras")
 
 # TODO: Create FastAPI App as global variable
-global fastAPI
+app = FastAPI()
 
 
 def image_to_np(image_bytes: bytes) -> np.ndarray:
@@ -29,14 +29,15 @@ def image_to_np(image_bytes: bytes) -> np.ndarray:
     # TODO: convert image to grayscale and resize
     gray_img = img.convert("L")
     # TODO: convert image to numpy array of shape model expects
-    size = (28, 28) 
+    size = (28, 28)
     gray_img = gray_img.resize(size)
-    return None
+    img_arr = np.array(gray_img)
+    return img_arr
 
 
 # TODO: Define predict POST function
-app=FastAPI()
 
-@app.post("/")
+
+@app.post("/predict")
 def predict_function():
     return {"Success": "test"}

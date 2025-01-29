@@ -11,6 +11,7 @@ from tensorflow.keras.saving import load_model  # type: ignore[import]
 from PIL import Image
 from io import BytesIO
 import numpy as np
+import tensorflow as tf
 
 model_path: str = "digits.keras"
 # TODO: Open saved Keras model as global variable. NO TYPE HINT REQUIRED!
@@ -28,8 +29,14 @@ def image_to_np(image_bytes: bytes) -> np.ndarray:
     # TODO: convert image to grayscale and resize
     gray_img = img.convert("L")
     # TODO: convert image to numpy array of shape model expects
-    size = (28, 28)
+    size = (28, 28) 
+    gray_img = gray_img.resize(size)
     return None
 
 
 # TODO: Define predict POST function
+app=FastAPI()
+
+@app.post("/")
+def predict_function():
+    return {"Success": "test"}

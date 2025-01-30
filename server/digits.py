@@ -45,8 +45,7 @@ def predict_function(img: Annotated[bytes, File()]):
     processed_img = image_to_np(img)  # convert your image
     prediction = keras_model.predict(processed_img)  # numpy array
 
-    return int(np.argmax(prediction)) # expecting bytes (img)
-
+    return int(np.argmax(prediction))  # expecting bytes (img)
 
     # requests.post()
     # return 0

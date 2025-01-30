@@ -16,9 +16,9 @@ import requests
 from typing import Annotated
 from fastapi import FastAPI, File, UploadFile
 
-model_path: str = "digits.keras"
+model_path: str = "./server/digits.keras"
 # TODO: Open saved Keras model as global variable. NO TYPE HINT REQUIRED!
-keras_model = load_model("./digits.keras")
+keras_model = load_model(model_path)
 
 # TODO: Create FastAPI App as global variable
 app: FastAPI = FastAPI()
@@ -37,12 +37,12 @@ def image_to_np(image_bytes: bytes) -> np.ndarray:
     return img_arr
 
 
-# TODO: Define predict POST function
+# TODO: Define predict POST function - post req to predict
 
 
 @app.post("/predict")
 def predict_function(img: Annotated[bytes, File()]):
-    return {"file_size": len(img)}
+    return {"file_size": len(img)} #expecting bytes (img)
 
     # requests.post()
     # return 0

@@ -4,6 +4,7 @@ Client sends data (path of image) to server and makes an HTTPS POST request
 """
 
 import sys
+import requests
 
 
 def get_img_prediction(
@@ -11,7 +12,12 @@ def get_img_prediction(
 ) -> str:
     """Send image to server for prediction."""
     # TODO: Replace with code to send image to server
-    return ""
+    url = f"http://{server_ip}:{server_port}{api_path}"
+    myobj = {'img': open(image_path, "rb")} #img is the folder name
+
+    x= requests.post(url, files=myobj)
+    print(x.text)
+    return (x.text)
 
 
 def main(server_ip: str, server_port: int) -> None:
@@ -21,8 +27,9 @@ def main(server_ip: str, server_port: int) -> None:
     """
     # TODO: Replace with prompt to user and call to get_img_prediction
     print(f"Using server {server_ip}:{server_port}")
-
-
+    var = input("Enter image path: ")
+    get_img_prediction(server_ip, server_port, '/predict', image_path=var)
+    
 if __name__ == "__main__":
     # Ensure user passes required arguments
     if len(sys.argv) != 3:
@@ -30,3 +37,4 @@ if __name__ == "__main__":
         sys.exit(1)
 
     main(sys.argv[1], int(sys.argv[2]))
+    

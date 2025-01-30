@@ -1,5 +1,6 @@
 """
 TODO: Insert what this program does here.
+Client sends data (path of image) to server and makes an HTTPS POST request
 """
 
 import sys

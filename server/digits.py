@@ -34,7 +34,7 @@ def image_to_np(image_bytes: bytes) -> np.ndarray:
     size = (28, 28)
     gray_img = gray_img.resize(size)
     img_arr = np.array(gray_img)
-    return img_arr
+    return np.expand_dims(img_arr, axis=0)
 
 
 # TODO: Define predict POST function - post req to predict
@@ -42,7 +42,11 @@ def image_to_np(image_bytes: bytes) -> np.ndarray:
 
 @app.post("/predict")
 def predict_function(img: Annotated[bytes, File()]):
-    return {"file_size": len(img)} #expecting bytes (img)
+    processed_img = image_to_np(img)  # convert your image
+    prediction = keras_model.predict(processed_img)  # numpy array
+
+    return int(np.argmax(prediction)) # expecting bytes (img)
+
 
     # requests.post()
     # return 0

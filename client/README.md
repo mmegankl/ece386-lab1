@@ -1,8 +1,10 @@
 # Digits Client
 
-*Replace this line with a one-sentence explanation of what the client does.*
+1. What the client does
+Client sends data (path of image) to server and makes an HTTPS POST request. Then after the server returns, the client will return an integer of the correct classification.
 
 ## Usage
 
-*Replace this line with some steps of how to setup and run the client*
+2. Setup and running client
+Since fastapi has been activated, the client will make a request at the IP address and port with the image path the user has given.
 
